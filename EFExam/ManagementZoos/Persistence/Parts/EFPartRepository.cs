@@ -33,4 +33,17 @@ public class EFPartRepository(EFDataContext context)
             }
         ).ToList();
     }
+
+    public List<ShowPartAndTyeAndCountAnimalsDto> GetPartAndTyeAndCountAnimalsDto()
+    {
+        return (
+            from part in context.Parts
+            select new ShowPartAndTyeAndCountAnimalsDto()
+            {
+                Id = part.Id,
+                Describtion = part.Description,
+                AnimalName = part.Animal.Name,
+                CountAnimal = part.CountAnimal
+            }).ToList();
+    }
 }

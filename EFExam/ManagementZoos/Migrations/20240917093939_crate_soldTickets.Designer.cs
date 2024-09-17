@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Zoo.Persistence;
 
@@ -11,9 +12,11 @@ using Zoo.Persistence;
 namespace Zoo.Migrations
 {
     [DbContext(typeof(EFDataContext))]
-    partial class EFDataContextModelSnapshot : ModelSnapshot
+    [Migration("20240917093939_crate_soldTickets")]
+    partial class crate_soldTickets
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -82,7 +85,7 @@ namespace Zoo.Migrations
                     b.ToTable("Parts");
                 });
 
-            modelBuilder.Entity("Zoo.Entities.SoldTicketMenu", b =>
+            modelBuilder.Entity("Zoo.Entities.SoldTicket", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -95,7 +98,7 @@ namespace Zoo.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("SoldTicketMenu");
+                    b.ToTable("SoldTicket");
                 });
 
             modelBuilder.Entity("Zoo.Entities.Ticket", b =>

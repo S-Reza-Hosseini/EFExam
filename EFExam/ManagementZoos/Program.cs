@@ -1,3 +1,9 @@
-﻿// See https://aka.ms/new-console-template for more information
+﻿using residential_complex.Io;
+using residential_complex.Io.Menues;
+using Zoo.Persistence;
 
-Console.WriteLine("Hello, World!");
+var consoleUi = new ConsoleUi();
+var dbContext = new EFDataContext();
+
+var mainMenu = new MainMenu(dbContext, consoleUi);
+mainMenu.Show();

@@ -1,4 +1,6 @@
+using Microsoft.EntityFrameworkCore;
 using Zoo.Dtos.Zoos;
+using Zoo.Entities;
 
 namespace Zoo.Persistence.Zoos;
 
@@ -31,4 +33,29 @@ public class EFZooRepository(EFDataContext context)
             }
         ).ToList();
     }
+
+    public List<ShowZooWithAnimalsDto> GetZooWithAnimalsDto()
+    {
+        return context.Zoos.Include(_ => _.Parts).Select(_ => new ShowZooWithAnimalsDto()
+        {
+            Id = _.Id,
+            Name = _.Name,
+            Address = _.Address,
+            AnimalsName = _.Parts.Select(p => p.Animal.Name).ToList(),
+        }).ToList();
+    }
+
+    public List<ShowZooAndpartWithPriceAndAreaDto> GetZooAndpartWithPriceAndAreaDtos()
+    {
+        return context.Zoos.Include(_=>_.Parts).Select(_ => new ShowZooAndpartWithPriceAndAreaDto()
+        {
+            Id = _.Id,
+            CountPart = _.Parts.Count,
+            Price = _.Parts.Select(_ => _.Ticket.Price).FirstOrDefault(),
+            Area = _.Parts.Select(_ => _.Area).FirstOrDefault()
+            
+        }).ToList();
+    }
+    
+    
 }
